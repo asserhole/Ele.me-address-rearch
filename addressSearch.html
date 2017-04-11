@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>地址搜索页面</title>
+	<script src="js/rem.js"></script>
+	<style>
+		*{margin: 0;padding: 0;}
+		a{text-decoration: none;}
+		body{
+			font-family: "微软雅黑";
+			color: #333;
+		}
+		.header{
+			height: .4rem;
+			position: relative;
+			background: #0096ff;
+			color: #fff;
+		}
+		.header a{
+			display: block;
+			width: .11rem;
+			height: .2rem;
+			position: absolute;
+			background-image: url(img/back.jpg);
+			background-size:.11rem .2rem;
+			top:.12rem;
+			left:.14rem;
+
+		}
+		.header h3{
+			text-align: center;
+			font-size: .17rem;
+			line-height: .4rem;
+			font-weight: normal;
+		}
+		.search{
+			height: .48rem;
+			background: #0096ff;
+			display: flex;
+			align-items:center;
+			justify-content:center;
+		}
+		.search input{
+			width: 3.18rem;
+			height: .27rem;
+			border:0;
+			border-radius: .1rem;
+			padding-left: .19rem;
+		}
+		.address .section{
+			height: .5rem;
+			padding-left: .15rem;
+			display: flex;
+			flex-direction:column;
+			justify-content:center;
+			border-bottom: 1px solid #f7f7f7;
+		}
+		.address .section h4{
+			font-size: .12rem;
+
+		}
+		.address .section p{
+			color: #a0a0a0;
+			font-size: .12rem;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<a href="javascript:;"></a>
+		<h3>选择地址</h3>
+	</div>
+	<div class="search">
+		<input type="text" placeholder="请输入地址" id="search">
+	</div>
+	<div class="address">
+		<!-- <div class="section">
+			<h4>陆家嘴【地铁站】</h4>
+			<p>地铁二号线</p>
+		</div> -->
+	</div>
+
+
+	<script src="lib/zepto.js"></script>
+	<script>
+		$('#search').keyup(function  () {
+			var val = $(this).val();
+			
+			$.get('https://mainsite-restapi.ele.me/bgs/poi/search_poi_nearby?keyword='+ val +'&offset=0&limit=20',function  (data) {
+					var html = "";
+					data.forEach(function(e){
+						html += "<div class='section'><h4>"+ e.name +"</h4><p>"+ e.address +"</p></div>";
+					});
+
+					$(".address").html(html);
+				})
+		})
+	</script>
+</body>
+</html>
